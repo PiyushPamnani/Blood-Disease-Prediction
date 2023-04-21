@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
+    <title>Blood Disease Prediction</title>
+
+    <!-- CSS  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="./static/css/materialize.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+    <link
+      href="./static/css2/style.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+  </head>
+
+  <body>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo">
+          <img
+            src="{{ url_for('static', filename='mit-logo.jpg') }}"
+            alt="MIT-LOGO"
+            class="image-logo"
+          />
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/anemiaHelp">Help</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/">Diabetes</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+      </div>
+    </nav>
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br /><br />
+        <h1 class="header center orange-text">Anemia Prediction</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">
+            Predict Whether a Person has Anemia or Not!
+            <br />
+          </h5>
+        </div>
+
+        <div class="row">
+          <form action="/predictAnemia" method="POST" class="col s12">
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Gender" class="label-tooltip"
+                  ><b>Gender</b>
+                  <span class="tooltip">Gender</span>
+                </label>
+                <br />
+                <input id="Gender" name="Gender" type="text" class="validate" />
+              </div>
+              <div class="input-field col s4">
+                <label for="Hemoglobin" class="label-tooltip"
+                  ><b>Hemoglobin</b>
+                  <span class="tooltip">Hemoglobin</span>
+                </label>
+                <br />
+                <input
+                  id="Hemoglobin"
+                  name="Hemoglobin"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+
+              <div class="input-field col s4">
+                <label for="MCH" class="label-tooltip"
+                  ><b>MCH</b>
+                  <span class="tooltip">Mean Corpuscular Hemoglobin</span>
+                </label>
+                <br />
+                <input id="MCH" name="MCH" type="text" class="validate" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="MCHC" class="label-tooltip"
+                  ><b>MCHC</b>
+                  <span class="tooltip"
+                    >Mean Corpuscular Hemoglobin Concentration</span
+                  >
+                </label>
+                <br />
+                <input id="MCHC" name="MCHC" type="text" class="validate" />
+              </div>
+              <div class="input-field col s4">
+                <label for="MCV" class="label-tooltip"
+                  ><b>MCV</b>
+                  <span class="tooltip">Mean Corpuscular Volume</span>
+                </label>
+                <br />
+                <input id="MCV" name="MCV" type="text" class="validate" />
+              </div>
+            </div>
+
+            <div class="row center">
+              <button
+                type="submit"
+                class="btn-large waves-effect waves-light orange"
+              >
+                Predict Probability
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <br />
+        <h4
+          align="center"
+          style="color:{{'green' if pred == 'Person is Not Anemic.' else 'red'}}"
+        >
+          {{pred}}
+        </h4>
+        <br />
+      </div>
+    </div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src=".js/materialize.js"></script>
+    <script src="js/init.js"></script>
+  </body>
+</html>

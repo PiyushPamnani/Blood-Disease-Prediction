@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
+    <title>Blood Disease Prediction</title>
+
+    <!-- CSS  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="./static/css/materialize.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+    <link
+      href="./static/css2/style.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+  </head>
+
+  <body>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo"
+          ><img
+            src="{{ url_for('static', filename='mit-logo.jpg') }}"
+            alt="MIT-LOGO"
+            class="image-logo"
+        /></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/diabetesHelp">Help</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/anemia">Anemia</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="/">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+      </div>
+    </nav>
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br /><br />
+        <h1 class="header center orange-text">Diabetes Prediction</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">
+            Predict Whether a Person is Diabetic or Not!
+            <br />
+          </h5>
+        </div>
+
+        <div class="row">
+          <form action="/predict" method="POST" class="col s12">
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Pregnancies" class="label-tooltip"
+                  ><b>Pregnancies</b>
+                  <span class="tooltip">Pregnancies</span>
+                </label>
+                <br />
+                <input
+                  id="Pregnancies"
+                  name="Pregnancies"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Glucose" class="label-tooltip"
+                  ><b>Glucose</b>
+                  <span class="tooltip">Glucose</span>
+                </label>
+                <br />
+                <input
+                  id="Glucose"
+                  name="Glucose"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+
+              <div class="input-field col s4">
+                <label for="BloodPressure" class="label-tooltip"
+                  ><b>BP</b>
+                  <span class="tooltip">Blood Pressure</span>
+                </label>
+                <br />
+                <input
+                  id="BloodPressure"
+                  name="BloodPressure"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="SkinThickness" class="label-tooltip"
+                  ><b>Skin Thickness</b>
+                  <span class="tooltip">Skin Thickness</span>
+                </label>
+                <br />
+                <input
+                  id="SkinThickness"
+                  name="SkinThickness"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Insulin" class="label-tooltip"
+                  ><b>Insulin</b>
+                  <span class="tooltip">Insulin</span>
+                </label>
+                <br />
+                <input
+                  id="Insulin"
+                  name="Insulin"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="BMI" class="label-tooltip"
+                  ><b>BMI</b>
+                  <span class="tooltip">Body Mass Index</span>
+                </label>
+                <br />
+                <input id="BMI" name="BMI" type="text" class="validate" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="DiabetesPedigreeFunction" class="label-tooltip"
+                  ><b>DPF</b>
+                  <span class="tooltip">Diabetes Pedigree Function</span>
+                </label>
+                <br />
+                <input
+                  id="DiabetesPedigreeFunction"
+                  name="DiabetesPedigreeFunction"
+                  type="text"
+                  class="validate"
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Age" class="label-tooltip"
+                  ><b>Age</b>
+                  <span class="tooltip">Age</span>
+                </label>
+                <br />
+                <input id="Age" name="Age" type="text" class="validate" />
+              </div>
+            </div>
+
+            <div class="row center">
+              <button
+                type="submit"
+                class="btn-large waves-effect waves-light orange"
+              >
+                Predict Probability
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <br />
+        <h4
+          align="center"
+          style="color:{{'green' if pred == 'Person is Non-Diabetic.' else 'red'}}"
+        >
+          {{pred}}
+        </h4>
+        <br />
+      </div>
+    </div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src=".js/materialize.js"></script>
+    <script src="js/init.js"></script>
+  </body>
+</html>
