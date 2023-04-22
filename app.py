@@ -16,19 +16,14 @@ def hello_world():
     return render_template("diabetes.html")
 
 
-@app.route('/anemia')
-def anemia():
-    return render_template("anemia.html")
+@app.route('/diabetesParameters')
+def diabetesParameters():
+    return render_template("diabetesParameters.html")
 
 
 @app.route('/diabetesHelp')
 def diabetesHelp():
     return render_template("diabetesHelp.html")
-
-
-@app.route('/anemiaHelp')
-def anemiaHelp():
-    return render_template("anemiaHelp.html")
 
 
 @app.route('/predict', methods=['POST', 'GET'])
@@ -39,6 +34,12 @@ def predict():
         return render_template('diabetes.html', pred='!! Please Enter Values in Appropriate Range. !!')
     if any(((value >= 'a' and value <= 'z') or (value >= 'A' and value <= 'Z')) for value in request.form.values()):
         return render_template('diabetes.html', pred='!! Please Enter Correct Values. !!')
+    pregnancies = float(request.form['Pregnancies'])
+    if pregnancies > 10:
+        return render_template('diabetes.html', pred='!! Pregnancy Value Out of Range. !!')
+    age = float(request.form['Age'])
+    if age >= 100:
+        return render_template('diabetes.html', pred='!! Age Value Out of Range. !!')
     int_features = [float(x) for x in request.form.values()]
     final = np.asarray(int_features)
     input_data_reshaped = final.reshape(1, -1)
@@ -51,12 +52,32 @@ def predict():
         return render_template('diabetes.html', pred='Person is Non-Diabetic.')
 
 
+@app.route('/anemia')
+def anemia():
+    return render_template("anemia.html")
+
+
+@app.route('/anemiaParameters')
+def anemiaParameters():
+    return render_template("anemiaParameters.html")
+
+
+@app.route('/anemiaHelp')
+def anemiaHelp():
+    return render_template("anemiaHelp.html")
+
+
 @app.route('/predictAnemia', methods=['POST', 'GET'])
 def predictAnemia():
     if any(value == '' for value in request.form.values()):
         return render_template('anemia.html', pred='!! Please Enter All Values. !!')
     if any(((value >= 'a' and value <= 'z') or (value >= 'A' and value <= 'Z')) for value in request.form.values()):
         return render_template('anemia.html', pred='!! Please Enter Correct Values. !!')
+    if any(float(value) >= 500 or float(value) < 0 for value in request.form.values()):
+        return render_template('anemia.html', pred='!! Please Enter Values in Appropriate Range. !!')
+    Gender = float(request.form['Gender'])
+    if Gender > 1:
+        return render_template('anemia.html', pred='!! Gender Value Out of Range. !!')
     int_features = [float(x) for x in request.form.values()]
     final = np.asarray(int_features)
     input_data_reshaped = final.reshape(1, -1)
