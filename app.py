@@ -26,21 +26,32 @@ def diabetesHelp():
     return render_template("diabetesHelp.html")
 
 
+diabetes_param_ranges = {
+    'Pregnancies': [0, 15],
+    'Glucose': [60, 200],
+    'Blood Pressure': [0, 150],
+    'Skin Thickness': [0, 100],
+    'Insulin': [0, 900],
+    'BMI': [0, 70],
+    'Diabetes Pedigree Function': [0, 3],
+    'Age': [18, 90]
+}
+
+
 @app.route('/predict', methods=['POST', 'GET'])
 def predict():
-    if any(value == '' for value in request.form.values()):
-        return render_template('diabetes.html', pred='!! Please Enter All Values. !!')
-    if any(float(value) >= 500 or float(value) < 0 for value in request.form.values()):
-        return render_template('diabetes.html', pred='!! Please Enter Values in Appropriate Range. !!')
-    if any(((value >= 'a' and value <= 'z') or (value >= 'A' and value <= 'Z')) for value in request.form.values()):
-        return render_template('diabetes.html', pred='!! Please Enter Correct Values. !!')
-    pregnancies = float(request.form['Pregnancies'])
-    if pregnancies > 10:
-        return render_template('diabetes.html', pred='!! Pregnancy Value Out of Range. !!')
-    age = float(request.form['Age'])
-    if age >= 100:
-        return render_template('diabetes.html', pred='!! Age Value Out of Range. !!')
-    int_features = [float(x) for x in request.form.values()]
+
+    # Check the validity of each input value
+    for param, range_ in diabetes_param_ranges.items():
+        value = request.form.get(param)
+        try:
+            value = float(value)
+            if value < range_[0] or value > range_[1]:
+                return render_template('diabetes.html', pred=f'{param.title()} value should be between {range_[0]} and {range_[1]}')
+        except ValueError:
+            return render_template('diabetes.html', pred=f'Invalid {param.title()} value')
+    int_features = [float(request.form.get(param))
+                    for param in diabetes_param_ranges.keys()]
     final = np.asarray(int_features)
     input_data_reshaped = final.reshape(1, -1)
     std_data = model2.transform(input_data_reshaped)
@@ -67,18 +78,28 @@ def anemiaHelp():
     return render_template("anemiaHelp.html")
 
 
+anemia_param_ranges = {
+    'Gender': [0, 1],
+    'Hemoglobin': [5, 20],
+    'MCH': [10, 40],
+    'MCHC': [15, 50],
+    'MCV': [60, 110],
+}
+
+
 @app.route('/predictAnemia', methods=['POST', 'GET'])
 def predictAnemia():
-    if any(value == '' for value in request.form.values()):
-        return render_template('anemia.html', pred='!! Please Enter All Values. !!')
-    if any(((value >= 'a' and value <= 'z') or (value >= 'A' and value <= 'Z')) for value in request.form.values()):
-        return render_template('anemia.html', pred='!! Please Enter Correct Values. !!')
-    if any(float(value) >= 500 or float(value) < 0 for value in request.form.values()):
-        return render_template('anemia.html', pred='!! Please Enter Values in Appropriate Range. !!')
-    Gender = float(request.form['Gender'])
-    if Gender > 1:
-        return render_template('anemia.html', pred='!! Gender Value Out of Range. !!')
-    int_features = [float(x) for x in request.form.values()]
+    # Check the validity of each input value
+    for param, range_ in anemia_param_ranges.items():
+        value = request.form.get(param)
+        try:
+            value = float(value)
+            if value < range_[0] or value > range_[1]:
+                return render_template('anemia.html', pred=f'{param.title()} value should be between {range_[0]} and {range_[1]}')
+        except ValueError:
+            return render_template('anemia.html', pred=f'Invalid {param.title()} value')
+    int_features = [float(request.form.get(param))
+                    for param in anemia_param_ranges.keys()]
     final = np.asarray(int_features)
     input_data_reshaped = final.reshape(1, -1)
     std_data = anemia_model2.transform(input_data_reshaped)
