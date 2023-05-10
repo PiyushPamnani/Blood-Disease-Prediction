@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
+    <title>Blood Disease Prediction</title>
+
+    <!-- CSS  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="./static/css/materialize.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+    <link
+      href="./static/css2/style.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+  </head>
+
+  <body>
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="/" class="brand-logo"
+          ><img
+            src="{{ url_for('static', filename='mit-logo.jpg') }}"
+            alt="MIT-LOGO"
+            class="image-logo"
+        /></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/">Diabetes</a></li>
+          <li><a href="/anemia">Anemia</a></li>
+          <li><a href="/chdParameters">Parameters</a></li>
+          <li><a href="/chdHelp">Help</a></li>
+        </ul>
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="/">Diabetes</a></li>
+          <li><a href="/anemia">Anemia</a></li>
+          <li><a href="/chdParameters">Parameters</a></li>
+          <li><a href="/chdHelp">Help</a></li>
+        </ul>
+        <a
+          href="#"
+          data-target="nav-mobile"
+          class="sidenav-trigger hide-on-large-only"
+          ><i class="material-icons">menu</i></a
+        >
+      </div>
+    </nav>
+
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br /><br />
+        <h1 class="header center orange-text">CHD Prediction</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">
+            Predict Whether a Person has Ten Year CHD risk or Not!
+            <br />
+          </h5>
+        </div>
+
+        <div class="row">
+          <form action="/predictCHD" method="POST" class="col s12">
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Male" class="label-tooltip"
+                  ><b>Male</b>
+                  <span class="tooltip">Male</span>
+                </label>
+                <br />
+                <input
+                  id="Male"
+                  name="Male"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Age" class="label-tooltip"
+                  ><b>Age</b>
+                  <span class="tooltip">Age</span>
+                </label>
+                <br />
+                <input
+                  id="Age"
+                  name="Age"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+
+              <div class="input-field col s4">
+                <label for="Education" class="label-tooltip"
+                  ><b>Education</b>
+                  <span class="tooltip">Education</span>
+                </label>
+                <br />
+                <input
+                  id="Education"
+                  name="Education"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Current Smoker" class="label-tooltip"
+                  ><b>Current Smoker</b>
+                  <span class="tooltip">Current Smoker</span>
+                </label>
+                <br />
+                <input
+                  id="CurrentSmoker"
+                  name="Current Smoker"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Cigarettes Per Day" class="label-tooltip"
+                  ><b>Cigarettes/Day</b>
+                  <span class="tooltip">Cigarettes Per Day</span>
+                </label>
+                <br />
+                <input
+                  id="CigarettesPerDay"
+                  name="Cigarettes Per Day"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="BP Medicines" class="label-tooltip"
+                  ><b>BP Medicines</b>
+                  <span class="tooltip">BP Medicines</span>
+                </label>
+                <br />
+                <input
+                  id="BPMedicines"
+                  name="BP Medicines"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Prevalent Stroke" class="label-tooltip"
+                  ><b>Prevalent Stroke</b>
+                  <span class="tooltip">Prevalent Stroke</span>
+                </label>
+                <br />
+                <input
+                  id="PrevalentStroke"
+                  name="Prevalent Stroke"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Prevalent Hypertensive" class="label-tooltip"
+                  ><b>Prevalent HTN</b>
+                  <span class="tooltip">Prevalent Hypertensive</span>
+                </label>
+                <br />
+                <input
+                  id="PrevalentHypertensive"
+                  name="Prevalent Hypertensive"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Diabetes" class="label-tooltip"
+                  ><b>Diabetes</b>
+                  <span class="tooltip">Diabetes</span>
+                </label>
+                <br />
+                <input
+                  id="Diabetes"
+                  name="Diabetes"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="Total Cholesterol" class="label-tooltip"
+                  ><b>Total Cholesterol</b>
+                  <span class="tooltip">Total Cholesterol</span>
+                </label>
+                <br />
+                <input
+                  id="TotalCholesterol"
+                  name="Total Cholesterol"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Systolic Blood Pressure" class="label-tooltip"
+                  ><b>Systolic BP</b>
+                  <span class="tooltip">Systolic Blood Pressure</span>
+                </label>
+                <br />
+                <input
+                  id="SystolicBloodPressure"
+                  name="Systolic Blood Pressure"
+                  type="text"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Diastolic Blood Pressure" class="label-tooltip"
+                  ><b>Diastolic BP</b>
+                  <span class="tooltip">Diastolic Blood Pressure</span>
+                </label>
+                <br />
+                <input
+                  id="DiastolicBloodPressure"
+                  name="Diastolic Blood Pressure"
+                  type="text"
+                  class="validate"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <label for="BMI" class="label-tooltip"
+                  ><b>BMI</b>
+                  <span class="tooltip">Body Mass Index</span>
+                </label>
+                <br />
+                <input
+                  id="BMI"
+                  name="BMI"
+                  type="text"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Heart Rate" class="label-tooltip"
+                  ><b>Heart Rate</b>
+                  <span class="tooltip">Heart Rate</span>
+                </label>
+                <br />
+                <input
+                  id="HeartRate"
+                  name="Heart Rate"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+              <div class="input-field col s4">
+                <label for="Glucose" class="label-tooltip"
+                  ><b>Glucose</b>
+                  <span class="tooltip">Glucose</span>
+                </label>
+                <br />
+                <input
+                  id="Glucose"
+                  name="Glucose"
+                  type="number"
+                  class="validate"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row center">
+              <button
+                type="submit"
+                class="btn-large waves-effect waves-light orange"
+              >
+                Predict Probability
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <br />
+        <h4
+          align="center"
+          style="color:{{'green' if pred == 'Person is not having Ten Year CHD Risk.' else 'red'}}"
+        >
+          {{pred}}
+        </h4>
+        <br />
+      </div>
+    </div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src=".js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".sidenav").sidenav();
+      });
+    </script>
+  </body>
+</html>
