@@ -1,6 +1,6 @@
 ### PREVIEW
 
-![alt text](./static/preview.png)
+![Blood-Disease-Prediction](https://i.ibb.co/vV8vxJ2/preview.png)
 
 ### OVERVIEW
 
